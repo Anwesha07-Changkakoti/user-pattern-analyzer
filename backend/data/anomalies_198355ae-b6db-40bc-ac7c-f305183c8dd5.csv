@@ -1,0 +1,2 @@
+Unnamed: 0,Destination Port,NAT Source Port,NAT Destination Port,Action,Bytes,Bytes Sent,Bytes Received,Packets,Elapsed Time (sec),pkts_sent,Unnamed: 11,anomaly
+6881,50321,43265,50321,allow,238,118.0,120,2,1199,,1.0,1

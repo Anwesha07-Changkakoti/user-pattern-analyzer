@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pandas
+scikit-learn
+python-multipart
+aiofiles
+firebase-admin

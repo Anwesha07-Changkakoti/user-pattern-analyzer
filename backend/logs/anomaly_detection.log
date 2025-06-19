@@ -19818,3 +19818,7 @@ INFO:app.main:WebSocket disconnected
 2025-06-19 22:09:54,222 — INFO — WebSocket disconnected
 2025-06-19 22:10:24,550 — INFO — WebSocket disconnected
 2025-06-19 22:10:24,550 — INFO — WebSocket disconnected
+2025-06-20 00:14:29,226 — INFO — WebSocket disconnected
+2025-06-20 00:14:50,167 — INFO — Anomaly at index 2 | Reason: High deviation in Destination Port, NAT Destination Port, Elapsed Time (sec) | Row snapshot: {'Unnamed: 0': 6881.0, 'Destination Port': 50321.0, 'NAT Source Port': 43265.0, 'NAT Destination Port': 50321.0, 'Bytes': 238.0, 'Bytes Sent': 118.0, 'Bytes Received': 120.0, 'Packets': 2.0, 'Elapsed Time (sec)': 1199.0, 'pkts_sent': 8.11111111111111, 'Unnamed: 11': 1.0}
+2025-06-20 00:15:00,657 — INFO — WebSocket disconnected
+2025-06-20 00:15:00,657 — INFO — WebSocket disconnected

@@ -143,19 +143,19 @@ export default function App() {
   if (authLoading) {
     return <p className="p-6 text-cybergreen">Loading authentication…</p>;
   }
-console.log("Example row:", batchRows[0]);
 
-const lineChartData = batchRows.map((row, idx) => ({
-  index: idx,
-  anomaly: Number(row.Anomaly ?? row.anomaly ?? 0),
-}));
+  const lineChartData = batchRows.map((row, idx) => ({
+    index: idx,
+    anomaly: Number(row.Anomaly ?? row.anomaly ?? 0),
+  }));
 
   return (
-    <>
+  
+    <div className="min-h-screen bg-black text-cybergreen">
       <Navbar />
 
       {!user ? (
-        <div className="p-6 text-center text-cybergreen">
+        <div className="p-6 text-center">
           <h1 className="text-3xl font-bold mb-4">User Pattern Analyzer</h1>
           <p className="mb-4">Please log in to view the dashboard.</p>
           <button
@@ -167,16 +167,15 @@ const lineChartData = batchRows.map((row, idx) => ({
         </div>
       ) : (
         <div className="p-6 space-y-6">
-          <h1 className="text-3xl font-bold text-cybergreen">User Pattern Analyzer</h1>
+          <h1 className="text-3xl font-bold">User Pattern Analyzer</h1>
 
-          {/* Upload visible to non-viewers */}
           {role !== "viewer" && (
             <>
               <label className="inline-block px-4 py-2 bg-cybergreen text-black rounded cursor-pointer">
                 Upload Log
                 <input type="file" onChange={onUpload} className="hidden" />
               </label>
-              {busy && <p className="text-cybergreen">Uploading…</p>}
+              {busy && <p>Uploading…</p>}
             </>
           )}
 
@@ -210,7 +209,7 @@ const lineChartData = batchRows.map((row, idx) => ({
             </>
           )}
 
-          <h2 className="text-2xl font-bold text-cybergreen">Real‑Time Stream</h2>
+          <h2 className="text-2xl font-bold">Real‑Time Stream</h2>
           <DataTable rows={liveRows} title="Live Logs (last 100)" height={300} />
           <LiveBarChart dataStream={liveRows} />
         </div>
@@ -238,6 +237,6 @@ const lineChartData = batchRows.map((row, idx) => ({
         />
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
-    </>
+    </div>
   );
 }

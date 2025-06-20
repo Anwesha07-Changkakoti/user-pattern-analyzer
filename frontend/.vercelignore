@@ -1,0 +1,12 @@
+node_modules/
+.vscode
+.git
+.gitignore
+package-lock.json
+README.md
+*.log
+.env
+.env.local
+.env.development
+.env.production
+*.zip

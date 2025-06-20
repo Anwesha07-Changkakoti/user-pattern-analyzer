@@ -50,7 +50,7 @@ app = FastAPI(title="User Pattern Analyzer API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["https://user-pattern-analyzer-fw2n7rpbn-anwesha-changkakotis-projects.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

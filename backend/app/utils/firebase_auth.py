@@ -4,18 +4,28 @@ from fastapi import Depends, HTTPException, status, Request, WebSocket
 from typing import Optional, Dict, Callable
 from functools import wraps
 import logging
+import os
+import json
 
 logger = logging.getLogger(__name__)
 
 # Initialize Firebase app if not already initialized
 if not firebase_admin._apps:
-    cred = credentials.Certificate("C:\\Users\\palla\\OneDrive\\Desktop\\final77\\backend\\serviceAccountKey.json")
-    firebase_admin.initialize_app(cred)
+    firebase_key_json = os.getenv("FIREBASE_KEY")
+
+    if not firebase_key_json:
+        raise RuntimeError("FIREBASE_KEY environment variable is not set")
+
+    try:
+        firebase_dict = json.loads(firebase_key_json)
+        cred = credentials.Certificate(firebase_dict)
+        firebase_admin.initialize_app(cred)
+    except Exception as e:
+        raise RuntimeError(f"Failed to initialize Firebase Admin SDK: {e}")
 
 # ------------------ HTTP Version ------------------
 
 async def get_current_user_optional(request: Request) -> Optional[Dict]:
-    print("Request headers:", request.headers) 
     auth_header: Optional[str] = request.headers.get("Authorization")
     if not auth_header or not auth_header.startswith("Bearer "):
         return None
@@ -50,9 +60,7 @@ async def get_current_user_ws(websocket: WebSocket) -> Dict:
 
 async def verify_firebase_token(token: str) -> Optional[Dict]:
     try:
-        print("Received token:", token[:30]) 
         decoded_token = auth.verify_id_token(token)
-        print("Decoded token:", decoded_token)
         return {
             "uid": decoded_token["uid"],
             "email": decoded_token.get("email"),

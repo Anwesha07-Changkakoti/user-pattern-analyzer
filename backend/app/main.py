@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+firebase_key = os.getenv("FIREBASE_KEY")
 from fastapi import FastAPI, UploadFile, File, Depends, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,10 +17,7 @@ from typing import Dict
 
 from app.services.ml_model import detect_anomalies
 from app.services.feature_engineering import preprocess
-from app.utils.firebase_auth import (
-    get_current_user,
-    get_current_user_optional_ws,
-)
+
 from app.models import Base
 from app.database import engine
 from app.routes.results import router as results_router
@@ -24,6 +26,13 @@ import logging
 import asyncio
 import datetime
 import random
+import os
+
+from app.utils.firebase_auth import (
+    get_current_user,
+    get_current_user_optional_ws,
+)
+
 
 
 Base.metadata.create_all(bind=engine)

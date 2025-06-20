@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
+// ✅ Use backend URL from environment variable (defaults to localhost for dev)
+const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+
 export default function Upload() {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
@@ -30,7 +33,7 @@ export default function Upload() {
       console.log("Current Token:", token);
       console.log("Uploading file with token:", token); // ✅ Debug token
 
-      const response = await axios.post("http://localhost:8000/analyze", formData, {
+      const response = await axios.post(`${API_BASE}/analyze`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`, // ✅ Include token

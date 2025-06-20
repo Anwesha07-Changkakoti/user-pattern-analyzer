@@ -2,6 +2,9 @@ import axios from "axios";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 
+// ✅ Use environment variable for deployed API base
+const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+
 export default function ResultsHistory() {
   const [rows, setRows] = useState([]);
   const [startDate, setStartDate] = useState("");
@@ -16,7 +19,7 @@ export default function ResultsHistory() {
       if (startDate) params.start_date = startDate;
       if (endDate) params.end_date = endDate;
 
-      const res = await axios.get("http://localhost:8000/results/history", {
+      const res = await axios.get(`${API_BASE}/results/history`, {
         headers: { Authorization: `Bearer ${token}` },
         params,
       });
@@ -27,7 +30,6 @@ export default function ResultsHistory() {
     }
   };
 
-  // ⏳ wait for Firebase to initialise / token refresh
   useEffect(() => {
     const auth = getAuth();
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -42,11 +44,8 @@ export default function ResultsHistory() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]); // refetch if date filters change
 
-  // 🔍 local filename filter (case‑insensitive)
   const filtered = rows.filter((r) =>
-    (r.file_name || "")
-      .toLowerCase()
-      .includes(filenameFilter.toLowerCase())
+    (r.file_name || "").toLowerCase().includes(filenameFilter.toLowerCase())
   );
 
   if (error) {
@@ -115,7 +114,7 @@ export default function ResultsHistory() {
               <td className="p-2">
                 <a
                   className="text-blue-400 underline"
-                  href={`http://localhost:8000/results/download/${r.file_name}`}
+                  href={`${API_BASE}/results/download/${r.file_name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
